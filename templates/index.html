@@ -29,30 +29,30 @@
         <div class="row">
             <div class="column">
                 <label for="name">姓名</label>
-                <input type="text" placeholder="你的名字" id="name" name="name">
+                <input type="text" placeholder="你的名字" id="name" name="name"/>
             </div>
 
             <div class="column">
                 <label for="phone">联系方式</label>
-                <input type="text" placeholder="你的手机号" id="phone" name="phone">
+                <input type="text" placeholder="你的手机号" id="phone" name="phone" />
             </div>
 
         </div>
         <div class="row">
             <div class="column">
                 <label for="go">离校日期</label>
-                <input type="text" placeholder="如:10-11" id="go" name="go">
+                <input type="text" placeholder="如:10-11" id="go" name="go"/>
             </div>
             <div class="column">
                 <label for="back">返校日期</label>
-                <input type="text" placeholder="如:10-12" id="back" name="back">
+                <input type="text" placeholder="如:10-12" id="back" name="back"/>
             </div>
 
         </div>
         <div class="row">
             <div class="column">
                 <label for="where">去向</label>
-                <input type="text" placeholder="世界那么大,你要去哪儿？" id="where" name="where">
+                <input type="text" placeholder="世界那么大,你要去哪儿？" id="where" name="where"/>
             </div>
         </div>
     </form>
@@ -84,13 +84,14 @@
 <script type="text/javascript">
     function send()
     {
+
         var json_data = JSON.stringify($('#fm').serializeJSON());
         console.log(json_data);
 
         instance = axios.create({
-          headers: {'Content-Type': 'application/json'},
+          headers: {'Content-Type': 'application/json'}
         });
-        instance.post('/submit',json_data)
+        instance.post('/submit', json_data)
     }
 
     function reset()
