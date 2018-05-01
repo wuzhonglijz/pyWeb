@@ -20,7 +20,7 @@
 
 </head>
 <body>
-
+<br/>
 <h1 style="font-family:Microsoft Yahei;text-align:center;">安徽科技学院自助填表系统</h1>
 <blockquote style="font-family:Microsoft Yahei;text-align:center;"><em>一个自助式、协作式的提交班级报表填写系统 --wzl</em></blockquote>
 
@@ -34,7 +34,7 @@
 
             <div class="column">
                 <label for="phone">联系方式</label>
-                <input type="text" placeholder="你的手机号" id="phone" name="phone" />
+                <input type="text" placeholder="你的手机号" id="phone" name="phone"/>
             </div>
 
         </div>
@@ -60,20 +60,34 @@
 
 
 <div class="row flex-center">
-    <input class="button-large" type="button" value="提交" onclick="send();">
-    <input class="button-large button-outline" type="reset" value="清空" onclick="reset();">
+    <input class="button-large" type="button" value="提交" onclick="send();"/>
+    <input class="button-large button-outline" type="reset" value="清空" onclick="reset();"/>
 </div>
 
 <div class="container">
     <table>
         <thead>
-        <th>序号</th>
-        <th>姓名</th>
-        <th>去向登记</th>
-        <th>离校日期</th>
-        <th>返校日期</th>
-        <th>联系方式</th>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>去向登记</th>
+            <th>离校日期</th>
+            <th>返校日期</th>
+            <th>联系方式</th>
+        </tr>
         </thead>
+        <tbody>
+        {% for row in data%}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.where }}</td>
+            <td>{{ row.go}}</td>
+            <td>{{ row.back }}</td>
+            <td>{{ row.phone }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
     </table>
 </div>
 
@@ -91,7 +105,7 @@
         instance = axios.create({
           headers: {'Content-Type': 'application/json'}
         });
-        instance.post('/submit', json_data)
+        instance.post('/', json_data)
     }
 
     function reset()

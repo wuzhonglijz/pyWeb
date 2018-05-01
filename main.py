@@ -20,18 +20,25 @@ class record(db.Model):
 
 @app.route('/',  methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'GET':
+        all_data = record.query.all()
+        return render_template('index.html', data= all_data)
 
-@app.route('/submit', methods=['POST'])
+    if request.method == 'POST':
+        name = request.form.get('phone')
+        data = json.loads(request.data)
+        stu = record(name= data['name'], phone= int(data['phone']), go= data['go'],
+                     back= data['back'], where= data['where'])
+        db.session.add(stu)
+        db.session.commit()
+        print(stu)
+
+@app.route('/submit', methods=['POST', 'GET'])
 def submit():
-    name = request.form.get('phone')
-    data = json.loads(request.data)
-    stu = record(name= data['name'], phone= int(data['phone']), go= data['go'],
-                 back= data['back'], where= data['where'])
-    db.session.add(stu)
-    db.session.commit()
-    print(data)
-    return ''
+    if request.method == 'POST':
+        pass
+    if request.method == 'GET':
+        pass
 
 @app.route('/<name>', methods=['GET'])
 def name(name):
