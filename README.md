@@ -3,3 +3,65 @@
 - 后端使用轻量级 Python 框架 flask
 - 前端 UI 框架使用极轻量级的 css 库 milligram
 - 前后端交互使用简洁优雅的 Axios
+---
+## 已经实现的功能:
+1. 记录的提交, 查询, 简单的输入错误提示.  
+
+## 下一步需要实现/正在实现中的功能:
+1. 在每条记录后面加上操作按钮 "修改", "删除", 完整实现基于 SQLAlchemy 的CRUD.
+2. 正则检测输入数据的正确性. 细化错误提示粒度.
+3. 待定.
+
+
+## 1. essential env (debian)
+需要 python3+
+```
+$pip install flask  
+$pip install flask_sqlalchemy
+```
+
+## 1.1 dev
+```
+$python main.py
+```
+访问 http://127.0.0.1:5000
+
+## 1.2 prod
+1. 安装 http 服务器 nginx, Wsgi 服务器 gunicorn, 并发框架 gevent.
+```
+$apt install nginx
+$pip install gunicorn
+$pip install gevent
+```
+
+2. 配置 nginx 反向代理:  
+
+```$nano /etc/nginx/sites-available/default```
+```
+server {
+        listen 80;
+        server_name //your domain name eg. us2.wzl.cc//;
+
+        location / {
+                proxy_pass http://127.0.0.1:8000;
+                proxy_redirect     off;
+                proxy_set_header   Host                 $http_host;
+                proxy_set_header   X-Real-IP            $remote_addr;
+                proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
+                proxy_set_header   X-Forwarded-Proto    $scheme;
+        }
+}
+```
+3. 重新启动 ngxin.
+```
+$service nginx restart
+```
+3. 运行 gunicorn, 同时启动 gevent.
+```
+$gunicorn -D -b 127.0.0.1:8000 -k gevent -w 2 main:app --error-logfile gunicorn_error.log
+```
+4. 停止服务器.
+```
+$service nginx stop
+$killall gunicorn
+```
