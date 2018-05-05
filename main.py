@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask, redirect, url_for, render_template, request
 from config import DevConfig,Config,DatabaseConfig,ProdConfig
 from flask_sqlalchemy import SQLAlchemy
 import json
+import time
 
 app = Flask(__name__)
 
@@ -20,33 +23,50 @@ class record(db.Model):
 
 @app.route('/',  methods=['GET', 'POST'])
 def index():
+    all_data = record.query.all()
     if request.method == 'GET':
-        all_data = record.query.all()
         return render_template('index.html', data= all_data)
 
-    if request.method == 'POST':
-        name = request.form.get('phone')
-        data = json.loads(request.data)
-        stu = record(name= data['name'], phone= int(data['phone']), go= data['go'],
-                     back= data['back'], where= data['where'])
-        db.session.add(stu)
-        db.session.commit()
-        print(stu)
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     if request.method == 'POST':
-        pass
-    if request.method == 'GET':
-        pass
+        data = json.loads(request.data)
+        try:
+            name = data['name']
+            phone = int(data['phone'])
+            go = data['go']
+            back = data['back']
+            where = data['where']
+            if (go=='' or back=='' or where==''):
+                raise ValueError
+            stu = record(name=name, phone=phone, go=go, back=back, where=where)
+            db.session.add(stu)
+        except ValueError:
+            return '输入有误, 请检查一下哪里出错了'
+        db.session.commit()
+        db.session.close()
+        print('committed!')
+        return ''
 
-@app.route('/<name>', methods=['GET'])
-def name(name):
-    return 'hello, %s' %name
 
 @app.route('/ip', methods=['GET'])
 def getip():
     return request.remote_addr
+
+@app.route('/del', methods=['POST', 'GET'])
+def dl():
+    if request.method == 'GET':
+        all_data = record.query.all()
+        for i in range(1, 20):
+            try:
+                x = record.query.filter_by(name='wzl' + str(i)).one()
+                db.session.delete(x)
+            except:
+                pass
+            db.session.commit()
+        return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
