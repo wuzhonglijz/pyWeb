@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, redirect, url_for, render_template, request
-from config import DevConfig,Config,DatabaseConfig,ProdConfig
-from flask_sqlalchemy import SQLAlchemy
 import json
-import time
+
+from flask import Flask, redirect, url_for, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+
+from config import DevConfig, DatabaseConfig
 
 app = Flask(__name__)
 
@@ -30,7 +31,7 @@ def index():
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     if request.method == 'POST':
-        data = json.loads(request.data)
+        data = json.loads(request.data.decode('utf-8'))
         try:
             name = data['name']
             phone = int(data['phone'])
