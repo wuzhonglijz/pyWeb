@@ -11,22 +11,22 @@
 1. 在每条记录后面加上操作按钮 "修改", "删除", 完整实现基于 SQLAlchemy 的CRUD.
 2. 正则检测输入数据的正确性. 细化错误提示粒度.
 3. 待定.
-
-
-## 1. essential env (debian)
+    
+## 部署方法
+### essential env (debian)
 需要 python3+
 ```
 $pip install flask  
 $pip install flask_sqlalchemy
 ```
 
-## 1.1 dev
+### dev
 ```
 $python main.py
 ```
 访问 http://127.0.0.1:5000
 
-## 1.2 prod
+### prod
 1. 安装 http 服务器 nginx, Wsgi 服务器 gunicorn, 并发框架 gevent.
 ```
 $apt install nginx
