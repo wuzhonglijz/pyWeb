@@ -27,7 +27,6 @@ def index():
     if request.method == 'GET':
         return render_template('index.html', data= all_data)
 
-
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     if request.method == 'POST':
