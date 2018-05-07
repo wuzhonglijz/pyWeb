@@ -2,19 +2,24 @@
 <!-- <link rel="stylesheet" href="//fonts.lug.ustc.edu.cn/css?family=Roboto:300,300italic,700,700italic"> -->
 <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/milligram/1.3.0/milligram.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+
 
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <!-- 包含头部信息用于适应不同设备 -->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>安徽科技学院自助填表系统</title>
     <style>
         .flex-center{
         display: flex;
         justify-content: space-around;
+        }
+        th {
+            text-align:center;
+        }
+        td {
+            text-align:center;
         }
     </style>
 
@@ -70,8 +75,8 @@
     <table>
         <thead>
         <tr>
-            <th>序号</th>
-            <th>姓名</th>
+            <th width="60px">序号</th>
+            <th width="80px">姓名</th>
             <th>去向登记</th>
             <th>离校日期</th>
             <th>返校日期</th>
@@ -81,8 +86,8 @@
         <tbody>
         {% for row in data%}
         <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ row.name }}</td>
+            <td width="60px">{{ loop.index }}</td>
+            <td width="80px">{{ row.name }}</td>
             <td>{{ row.where }}</td>
             <td>{{ row.go}}</td>
             <td>{{ row.back }}</td>
@@ -96,6 +101,8 @@
 </body>
 
 <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
 
 <script type="text/javascript">
     function send()
