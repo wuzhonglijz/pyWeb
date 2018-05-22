@@ -28,12 +28,13 @@ def index():
     if request.method == 'GET':
         return render_template('index.html', data= all_data)
 
-@app.route('/submit', methods=['POST', 'GET'])
+
+@app.route('/submit', methods=['POST', 'DELETE'])
 def submit():
     if request.method == 'POST':
         data = json.loads(request.data.decode('utf-8'))
         try:
-            name = data['name']
+            name = data['name'].strip()
             phone = int(data['phone'])
             go = data['go']
             back = data['back']
@@ -48,14 +49,26 @@ def submit():
         db.session.close()
         print('committed!')
         return ''
-
+    if request.method == 'DELETE':
+        data = json.loads(request.data.decode('utf-8'))
+        name = data['name'].strip()
+        print(name)
+        all_data = record.query.all()
+        try:
+            x = record.query.filter_by(name=name).one()
+            db.session.delete(x)
+        except:
+            pass
+        db.session.commit()
+        return ''
 
 @app.route('/ip', methods=['GET'])
 def getip():
     return request.remote_addr
 
-@app.route('/del', methods=['POST', 'GET'])
-def dl():
+
+@app.route('/delall', methods=['GET'])
+def delall():
     if request.method == 'GET':
         all_data = record.query.all()
         for i in range(1, 20):

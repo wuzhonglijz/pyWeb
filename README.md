@@ -9,9 +9,9 @@ FCC certification: https://freecodecamp.cn/wuzhonglijz/front-end-certification
 
 ## 已经实现的功能
 1. 记录的提交, 查询, 简单的输入错误提示.  
-
+2. 记录的删除按钮与实现.
 ## 下一步需要实现/正在实现中的功能
-1. 在每条记录后面加上操作按钮 "修改", "删除", 完整实现基于 SQLAlchemy 的CRUD.
+1. 在每条记录后面加上操作按钮 "修改", ~~"删除",~~ 完整实现基于 SQLAlchemy 的CRUD.
 2. 正则检测输入数据的正确性. 细化错误提示粒度.
 3. 待定.
     
