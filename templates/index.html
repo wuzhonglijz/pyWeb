@@ -81,6 +81,7 @@
             <th>离校日期</th>
             <th>返校日期</th>
             <th>联系方式</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -92,6 +93,11 @@
             <td>{{ row.go}}</td>
             <td>{{ row.back }}</td>
             <td>{{ row.phone }}</td>
+            <td><input class="button-large button-outline" type="button" value="编辑" disabled=""
+                       onclick="edit(&quot {{row.name}} &quot);"/>
+                <input class="button-large button-outline" type="button" value="删除"
+                       onclick="del(&quot {{row.name}} &quot);"/>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
@@ -100,9 +106,9 @@
 
 </body>
 
-<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
 
 <script type="text/javascript">
     function send()
@@ -129,5 +135,18 @@
         $('#fm')[0].reset();
     }
 
+    function del(name)
+    {
+        instance.delete('/submit', name).then(function(response){
+            if (response.data == '')
+                location.reload();
+            else
+                $("#alert").html(response.data);
+    }
+
+    function edit(name)
+    {
+
+    }
 </script>
 </html>
