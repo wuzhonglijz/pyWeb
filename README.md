@@ -3,6 +3,8 @@
 - 后端使用轻量级 Python 框架 flask
 - 前端 UI 框架使用极轻量级的 css 库 milligram
 - 前后端交互使用简洁优雅的 Axios
+- 记录存储使用单文件轻量级数据库 SQLite3
+- 对记录的操作使用了 RESTful 的接口
 - - -
 Demo: http://us2.wzl.cc  
 FCC certification: https://freecodecamp.cn/wuzhonglijz/front-end-certification  
@@ -10,10 +12,10 @@ FCC certification: https://freecodecamp.cn/wuzhonglijz/front-end-certification
 ## 已经实现的功能
 1. 记录的提交, 查询, 简单的输入错误提示.  
 2. 记录的删除按钮与实现.
+3. 在每条记录后面加上操作按钮 "修改", "删除", 完整实现了基于 SQLAlchemy 的数据库的CRUD. (2018-5-31)
 ## 下一步需要实现/正在实现中的功能
-1. 在每条记录后面加上操作按钮 "修改", ~~"删除",~~ 完整实现基于 SQLAlchemy 的CRUD.
-2. 正则检测输入数据的正确性. 细化错误提示粒度.
-3. 待定.
+1. 正则检测输入数据的正确性. 细化错误提示粒度.
+2. 待定.
     
 ## 部署方法
 ### essential env (debian)
