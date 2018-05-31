@@ -72,7 +72,7 @@
 </div>
 
 <div class="container">
-    <table>
+    <table id="tb">
         <thead>
         <tr>
             <th width="60px">序号</th>
@@ -88,15 +88,18 @@
         {% for row in data%}
         <tr>
             <td width="60px">{{ loop.index }}</td>
-            <td width="80px">{{ row.name }}</td>
+            <td width="90px">{{ row.name }}</td>
             <td>{{ row.where }}</td>
             <td>{{ row.go}}</td>
             <td>{{ row.back }}</td>
             <td>{{ row.phone }}</td>
-            <td><input class="button-large button-outline" type="button" value="编辑" disabled=""
-                       onclick="edit(&quot {{row.name}} &quot);"/>
-                <input class="button-large button-outline" type="button" value="删除"
-                       onclick="del(&quot {{row.name}} &quot);"/>
+            <td>
+                <div>
+                    <input class="button-large button-outline" type="button" value="编辑"
+                           onclick="edit(&quot {{row.name}} &quot);"/>
+                    <input class="button-large button-outline" type="button" value="删除"
+                           onclick="del(&quot {{row.name}} &quot);"/>
+                </div>
             </td>
         </tr>
         {% endfor %}
@@ -150,6 +153,54 @@
             else
                 $("#alert").html(response.data);
         });
+    }
+
+    function edit(name)
+    {
+        $("#name").attr({
+            "value" : name,
+            "readonly" : "readonly"
+        });
+
+        $("#tb tr").each(function(i){
+            var tb_name = $(this).children('td').eq(1).text();
+            if (tb_name == name.trim()){
+                var where = $(this).children('td').eq(2).text();
+                var go = $(this).children('td').eq(3).text();
+                var back = $(this).children('td').eq(4).text();
+                var phone = $(this).children('td').eq(5).text();
+                $("#name").attr( "value", tb_name );
+                $("#where").attr( "value", where );
+                $("#go").attr( "value", go );
+                $("#back").attr( "value", back );
+                $("#phone").attr( "value", phone );
+            }
+
+        });
+
+        $("#submit").attr({
+            "onclick" : "sub_edit();",
+            "value" : "提交修改"
+        });
+    }
+
+    function sub_edit()
+    {
+        var json_data = JSON.stringify($('#fm').serializeJSON());
+        console.log(name);
+
+        instance = axios.create({
+          headers: {'Content-Type': 'application/json'}
+        });
+
+        instance.patch('/submit', json_data).then(function(response){
+            if (response.data == '')
+                location.reload();
+            else
+                $("#alert").html(response.data);
+        });
+
+
     }
 
 
