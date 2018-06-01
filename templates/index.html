@@ -68,7 +68,7 @@
 
 <div class="row flex-center">
     <input id="submit" class="button-large" type="button" value="提交" onclick="send();"/>
-    <input class="button-large button-outline" type="reset" value="清空" onclick="reset();"/>
+    <input id="reset" class="button-large button-outline" type="reset" value="清空" onclick="reset();"/>
 </div>
 
 <div class="container">
@@ -159,7 +159,7 @@
     {
         $("#name").attr({
             "value" : name,
-            "readonly" : "readonly"
+            "disabled": true
         });
 
         $("#tb tr").each(function(i){
@@ -175,13 +175,18 @@
                 $("#back").attr( "value", back );
                 $("#phone").attr( "value", phone );
             }
-
         });
 
         $("#submit").attr({
             "onclick" : "sub_edit();",
             "value" : "提交修改"
         });
+
+        $("#reset").attr({
+            "value" : "还原修改"
+        });
+
+        $("#alert").html("");
     }
 
     function sub_edit()
