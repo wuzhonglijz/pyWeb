@@ -89,7 +89,7 @@
         <tr>
             <td width="60px">{{ loop.index }}</td>
             <td width="90px">{{ row.name }}</td>
-            <td>{{ row.where }}</td>
+            <td style="min-width: 120px">{{ row.where }}</td>
             <td>{{ row.go}}</td>
             <td>{{ row.back }}</td>
             <td>{{ row.phone }}</td>
@@ -159,7 +159,7 @@
     {
         $("#name").attr({
             "value" : name,
-            "disabled": true
+            "readonly": true
         });
 
         $("#tb tr").each(function(i){
