@@ -6,7 +6,7 @@
 - 记录存储使用单文件轻量级数据库 SQLite3
 - 对记录的操作使用了 RESTful 的接口
 - - -
-Demo: http://us2.wzl.cc  
+~~Demo: http://us2.wzl.cc~~
 FCC certification: https://freecodecamp.cn/wuzhonglijz/front-end-certification  
 
 ## 已经实现的功能
